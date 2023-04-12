@@ -52,7 +52,7 @@ namespace VMPImportFixer
         {
             _field = _module.GetTypes()
                 .SelectMany(type => type.Methods)
-                .Where(md => md.HasBody && md.ReturnType == md.Module.CorLibTypes.Boolean && md.Body.Instructions.Count >= 370)
+                .Where(md => md.DeclaringType.Methods.Count < 4 && md.HasBody && md.ReturnType == md.Module.CorLibTypes.Boolean && md.Body.Instructions.Count >= 370)
                 .SelectMany(md => md.DeclaringType.Fields)
                 .Select(field => field.MDToken.ToInt32())
                 .FirstOrDefault();
